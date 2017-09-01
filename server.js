@@ -1,8 +1,31 @@
 var app = require('express')();
-var http = require('http');
-var score = 0;
-var request = require('request');
-http.createServer(function(req, res) {
+var http = require('http').Server(app);
+var io = require("socket.io")(http);
+
+app.get('/', function(req, res) {
+    res.sendFile(__dirname + '/index.html');
+});
+
+io.on('connection', function(socket) {
+    socket.on('chat message', function(msg) {
+        console.log('message: ' + msg);
+        io.emit('chat message', msg);
+    });
+});
+
+http.listen(3000, function() {
+    console.log('listening on *:3000');
+});
+
+
+
+
+
+
+
+
+
+/*http.createServer(function(req, res) {
     //res.writeHead(200, { 'Content-Type': 'text/html' });
     //Get Query
     var query = req.url;
@@ -27,4 +50,4 @@ http.createServer(function(req, res) {
             console.log('Upload successful!  Server responded with:', body);
 
         })
-}).listen(8080);
+}).listen(8080);*/
