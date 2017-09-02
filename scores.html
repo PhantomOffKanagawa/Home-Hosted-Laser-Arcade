@@ -7,19 +7,30 @@
         * {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
         
-        div div {
-            width: 30vw;
-            height: 30vw;
-            margin: 1.3vw;
+        .container {
+            float: left;
+        }
+        
+        .container>div {
+            display: inline-block;
+            height: 33vw;
             text-align: center;
             line-height: 30vw;
-            font-size: 33vw;
-            padding: none;
+            font-size: 100%;
+        }
+        
+        #team0 {
             background-color: red;
-            display: inline-block;
+        }
+        
+        #team1 {
+            background-color: green;
+        }
+        
+        #team2 {
+            background-color: blue;
         }
     </style>
     <script src="/socket.io/socket.io.js"></script>
@@ -27,19 +38,20 @@
     <script>
         $(function() {
             var socket = io();
+            socket.emit('update')
             socket.on('score update', function(team, score) {
                 $('#team' + team).text(score);
+                var total = parseInt(document.getElementById("team0").innerHTML) + parseInt(document.getElementById("team1").innerHTML) + parseInt(document.getElementById("team2").innerHTML);
+                document.getElementById("team0").setAttribute("style", "width:" + (parseInt(document.getElementById("team0").innerHTML) / total * 100).toString() + "vw");
+                document.getElementById("team1").setAttribute("style", "width:" + (parseInt(document.getElementById("team1").innerHTML) / total * 100).toString() + "vw");
+                document.getElementById("team2").setAttribute("style", "width:" + (parseInt(document.getElementById("team2").innerHTML) / total * 100).toString() + "vw");
             });
         });
     </script>
 </head>
 
 <body>
-    <div class="scores">
-        <div id="team0">0</div>
-        <div id="team1">0</div>
-        <div id="team2">0</div>
-    </div>
+    <div class="container"><div id="team0">0</div><div id="team1">0</div><div id="team2">0</div></div>
 </body>
 
 </html>

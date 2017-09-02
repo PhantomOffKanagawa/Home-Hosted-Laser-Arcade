@@ -7,6 +7,11 @@ io.on('connection', function(socket) {
     socket.on('score update', function(team, score) {
         io.emit('score update', team);
     });
+    socket.on('update', function() {
+        io.emit('score update', 0, score[0]);
+        io.emit('score update', 1, score[1]);
+        io.emit('score update', 2, score[2]);
+    });
 });
 
 http.listen(8080, function() {
@@ -21,6 +26,7 @@ app.get('/scores', function(req, res) {
 app.get('/receive', function(req, res) {
     var query = req.url;
     var team = query.slice(9, 10);
+    console.log(team);
     var ptxt = query.slice(10);
     var points = parseInt(ptxt, 10);
     score[team] += points;
