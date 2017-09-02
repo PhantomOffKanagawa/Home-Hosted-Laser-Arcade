@@ -15,10 +15,11 @@
         
         .container>div {
             display: inline-block;
-            height: 33vw;
+            height: 33vh;
+            width: 20vw;
             text-align: center;
-            line-height: 30vw;
-            font-size: 100%;
+            line-height: 33vh;
+            font-size: 10vw;
         }
         
         #team0 {
@@ -37,21 +38,29 @@
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
         $(function() {
+            var t0 = document.getElementById("team0");
+            var t1 = document.getElementById("team1");
+            var t2 = document.getElementById("team2");
+            var cc = document.getElementById("contId");
             var socket = io();
-            socket.emit('update')
+            socket.emit('update');
             socket.on('score update', function(team, score) {
                 $('#team' + team).text(score);
-                var total = parseInt(document.getElementById("team0").innerHTML) + parseInt(document.getElementById("team1").innerHTML) + parseInt(document.getElementById("team2").innerHTML);
-                document.getElementById("team0").setAttribute("style", "width:" + (parseInt(document.getElementById("team0").innerHTML) / total * 100).toString() + "vw");
-                document.getElementById("team1").setAttribute("style", "width:" + (parseInt(document.getElementById("team1").innerHTML) / total * 100).toString() + "vw");
-                document.getElementById("team2").setAttribute("style", "width:" + (parseInt(document.getElementById("team2").innerHTML) / total * 100).toString() + "vw");
+                var total = parseInt(t0.innerHTML) + parseInt(t1.innerHTML) + parseInt(t2.innerHTML);
+                t0.setAttribute("style", "width:" + (parseInt(t0.innerHTML) / total * 75 + 20).toString() + "vw");
+                t1.setAttribute("style", "width:" + (parseInt(t1.innerHTML) / total * 75 + 20).toString() + "vw");
+                t2.setAttribute("style", "width:" + (parseInt(t2.innerHTML) / total * 75 + 20).toString() + "vw");
             });
         });
     </script>
 </head>
 
 <body>
-    <div class="container"><div id="team0">0</div><div id="team1">0</div><div id="team2">0</div></div>
+    <div id="contId" class="container">
+        <div style="width:5vw;">0:</div><div id="team0" class="score">0</div><br />
+        <div style="width:5vw;">1:</div><div id="team1">0</div><br />
+        <div style="width:5vw;">2:</div><div id="team2">0</div><br />
+    </div>
 </body>
 
 </html>
