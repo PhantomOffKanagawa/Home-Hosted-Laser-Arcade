@@ -3,21 +3,31 @@ var http = require('http').Server(app);
 var io = require("socket.io")(http);
 var request = require("request");
 
-http.listen(3000, function() {
-    console.log('listening on *:3000');
+io.on('connection', function(socket) {
+    socket.on('score update', function(msg) {
+        console.log("foo" + msg);
+        io.emit('score update', msg);
+    });
+});
+
+http.listen(8080, function() {
+    console.log('listening on *:8080');
 });
 
 var score = 0;
-app.get('/', function(req, res) {
-    res.sendFile(__dirname + '/index.html');
+app.get('/scores', function(req, res) {
+    res.sendFile(__dirname + '/scores.html');
+});
 
+app.get('/receive', function(req, res) {
     var query = req.url;
-    var team = query.slice(1, 2);
-    var ptxt = query.slice(2);
+    var team = query.slice(9, 10);
+    var ptxt = query.slice(10);
     var points = parseInt(ptxt, 10);
     score += points;
-
-    request.put("https://locationPartOfAddress.api.smartthings.com:443/api/smartapps/installations/uuid/switches/toggle", {
+    io.emit('score update', '1');
+    console.log("asd");
+    /*request.put("https://locationPartOfAddress.api.smartthings.com:443/api/smartapps/installations/uuid/switches/toggle", {
             headers: {
                 Authorization: "Bearer  tokenUuid"
             }
@@ -27,12 +37,6 @@ app.get('/', function(req, res) {
                 return console.error('upload failed:', err);
             }
             console.log('Upload successful!  Server responded with:', body);
-        })
-});
-
-io.on('connection', function(socket) {
-    socket.on('chat message', function(msg) {
-        console.log('message: ' + msg);
-        io.emit('chat message', msg);
-    });
+        })*/
+    res.end();
 });

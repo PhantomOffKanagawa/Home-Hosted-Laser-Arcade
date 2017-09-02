@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Socket.IO chat</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        div div {
+            width: 30vw;
+            height: 30vw;
+            margin: 1.3vw;
+            text-align: center;
+            line-height: 30vw;
+            font-size: 33vw;
+            padding: none;
+            background-color: red;
+            display: inline-block;
+        }
+    </style>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+        $(function() {
+            var socket = io();
+            socket.on('score update', function(score) {
+                $('#team0').text(score);
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="scores">
+        <div id="team0">0</div>
+        <div id="team1">1</div>
+        <div id="team2">2</div>
+    </div>
+</body>
+
+</html>
