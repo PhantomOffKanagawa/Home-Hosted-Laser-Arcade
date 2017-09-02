@@ -1,1 +1,0 @@
-curl -H "Authorization: Bearer  tokenUuid" -X PUT "https://locationPartOfAddress.api.smartthings.com/api/smartapps/installations/2e10fbd4-94f9-4370-9e09-8bb2e1dd2723/switches/off
