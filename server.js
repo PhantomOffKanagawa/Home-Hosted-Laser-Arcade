@@ -25,7 +25,7 @@ app.get('/receive', function(req, res) {
     var points = parseInt(ptxt, 10);
     score[team] += points;
     io.emit('score update', team, score[team]);
-    /*request.put("https://locationPartOfAddress.api.smartthings.com:443/api/smartapps/installations/uuid/switches/toggle", {
+    request.put("https://locationPartOfAddress.api.smartthings.com:443/api/smartapps/installations/uuid/switches/" + team, {
             headers: {
                 Authorization: "Bearer  tokenUuid"
             }
@@ -35,6 +35,6 @@ app.get('/receive', function(req, res) {
                 return console.error('upload failed:', err);
             }
             console.log('Upload successful!  Server responded with:', body);
-        })*/
+        })
     res.end();
 });
