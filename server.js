@@ -4,9 +4,8 @@ var io = require("socket.io")(http);
 var request = require("request");
 
 io.on('connection', function(socket) {
-    socket.on('score update', function(msg) {
-        console.log("foo" + msg);
-        io.emit('score update', msg);
+    socket.on('score update', function(team, score) {
+        io.emit('score update', team);
     });
 });
 
@@ -14,7 +13,7 @@ http.listen(8080, function() {
     console.log('listening on *:8080');
 });
 
-var score = 0;
+var score = [0, 0, 0];
 app.get('/scores', function(req, res) {
     res.sendFile(__dirname + '/scores.html');
 });
@@ -24,9 +23,8 @@ app.get('/receive', function(req, res) {
     var team = query.slice(9, 10);
     var ptxt = query.slice(10);
     var points = parseInt(ptxt, 10);
-    score += points;
-    io.emit('score update', '1');
-    console.log("asd");
+    score[team] += points;
+    io.emit('score update', team, score[team]);
     /*request.put("https://locationPartOfAddress.api.smartthings.com:443/api/smartapps/installations/uuid/switches/toggle", {
             headers: {
                 Authorization: "Bearer  tokenUuid"

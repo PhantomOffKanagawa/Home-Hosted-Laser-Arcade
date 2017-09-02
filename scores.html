@@ -27,8 +27,8 @@
     <script>
         $(function() {
             var socket = io();
-            socket.on('score update', function(score) {
-                $('#team0').text(score);
+            socket.on('score update', function(team, score) {
+                $('#team' + team).text(score);
             });
         });
     </script>
@@ -37,8 +37,8 @@
 <body>
     <div class="scores">
         <div id="team0">0</div>
-        <div id="team1">1</div>
-        <div id="team2">2</div>
+        <div id="team1">0</div>
+        <div id="team2">0</div>
     </div>
 </body>
 
