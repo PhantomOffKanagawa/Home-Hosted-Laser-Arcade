@@ -1,0 +1,66 @@
+{
+    "devices": [{
+            "name": "Volcano Light",
+            "uni_code": 0,
+            "iot_type": "Smartthings",
+            "iot_name": "FR Center Light",
+            "timeout": 5000,
+            "point_reward": 200,
+            "hits_per": 3,
+            "status": {
+                "last_activation": 0,
+                "times_hit": 0
+            },
+            "analytics": {
+                "t0h": 0,
+                "t1h": 0,
+                "t2h": 0,
+                "t0a": 0,
+                "t1a": 0,
+                "t2a": 0
+            }
+        },
+        {
+            "name": "Torch Light Left",
+            "uni_code": 1,
+            "iot_type": "Smartthings",
+            "iot_name": "FR Left Light",
+            "timeout": 2500,
+            "point_reward": 100,
+            "hits_per": 1,
+            "status": {
+                "last_activation": 0,
+                "times_hit": 0
+            },
+            "analytics": {
+                "t0h": 0,
+                "t1h": 0,
+                "t2h": 0,
+                "t0a": 0,
+                "t1a": 0,
+                "t2a": 0
+            }
+        },
+        {
+            "name": "Torch Light Right",
+            "uni_code": 2,
+            "iot_type": "Smartthings",
+            "iot_name": "FR Right Light",
+            "timeout": 2500,
+            "point_reward": 100,
+            "hits_per": 1,
+            "status": {
+                "last_activation": 0,
+                "times_hit": 0
+            },
+            "analytics": {
+                "t0h": 0,
+                "t1h": 0,
+                "t2h": 0,
+                "t0a": 0,
+                "t1a": 0,
+                "t2a": 0
+            }
+        }
+    ]
+}

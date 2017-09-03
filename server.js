@@ -56,7 +56,7 @@ app.get('/receive', function(req, res) {
     var points = parseInt(ptxt, 10);
     db.push("/currentGame[" + team + "]", db.getData("/currentGame[" + team + "]") + points);
     io.emit('score update', team, db.getData("/currentGame[" + team + "]"));
-    request.put("https://locationPartOfAddress.api.smartthings.com:443/api/smartapps/installations/uuid/switches/" + team, {
+    request.put("https://locationPartOfAddress.api.smartthings.com:443/api/smartapps/installations/uuid/switches/FR TV Center", {
             headers: {
                 Authorization: "Bearer  tokenUuid"
             }
