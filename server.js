@@ -4,6 +4,11 @@ var io = require("socket.io")(http);
 var request = require("request");
 var JsonDB = require('node-json-db');
 var db = new JsonDB("oldGames", true, true);
+var linq = require("linq");
+
+var templateDb = new JsonDB("devicesTemplate", false, true);
+var devicesTemplates = templateDb.getData("/devices");
+console.log(devicesTemplates);
 
 var gamesC = 0;
 var currentGObj = [];
@@ -51,12 +56,14 @@ app.get('/newgame', function(req, res) {
 
 app.get('/receive', function(req, res) {
     var query = req.url;
-    var team = query.slice(9, 10);
-    var ptxt = query.slice(10);
-    var points = parseInt(ptxt, 10);
-    db.push("/currentGame[" + team + "]", db.getData("/currentGame[" + team + "]") + points);
+    var team = parseInt(query.slice(9, 10));
+    console.log(team);
+    var target = linq.from(devicesTemplates).first(function(value, index) { return value.uni_code === team;});
+    console.log(target);
+
+    db.push("/currentGame[" + team + "]", db.getData("/currentGame[" + team + "]") + target.point_reward);
     io.emit('score update', team, db.getData("/currentGame[" + team + "]"));
-    request.put("https://locationPartOfAddress.api.smartthings.com:443/api/smartapps/installations/uuid/switches/FR TV Center", {
+    request.put("https://locationPartOfAddress.api.smartthings.com:443/api/smartapps/installations/uuid/switches/" + target.iot_name, {
             headers: {
                 Authorization: "Bearer  tokenUuid"
             }
