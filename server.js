@@ -13,6 +13,7 @@ io.on('connection', function(socket) {
         io.emit('score update', team);
     });
     socket.on('update', function() {
+        io.emit('new game', db.getData("/games"));
         io.emit('score update', 0, db.getData("/currentGame[0]"));
         io.emit('score update', 1, db.getData("/currentGame[1]"));
         io.emit('score update', 2, db.getData("/currentGame[2]"));
@@ -35,6 +36,7 @@ app.get('/newgame', function(req, res) {
     };
 
     db.push("/games[-1]", obj, false);
+    io.emit('new game', db.getData("/games"));
     db.push("/games[]", {'startDate' : new Date().toUTCString()})
 
     var currentGObj = [0,0,0];
