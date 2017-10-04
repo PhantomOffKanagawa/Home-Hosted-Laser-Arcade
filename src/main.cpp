@@ -156,7 +156,7 @@ void loop()
     else if (results.value == 0x7F2EF080)
     {
       twoScore++;
-      http.begsin("serverip:port/receive?12"); //Specify request destination
+      http.begin("serverip:port/receive?12"); //Specify request destination
       Serial.println(twoScore);
     }
 
