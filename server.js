@@ -6,12 +6,11 @@ var JsonDB = require('node-json-db');
 var db = new JsonDB("oldGames", true, true);
 var linq = require("linq");
 
-var templateDb = new JsonDB("devicesTemplate", false, true);
-var devicesTemplates = templateDb.getData("/devices");
-console.log(devicesTemplates);
+var deviceDb = new JsonDB("devicesTemplate", false, true);
+var devices = deviceDb.getData("/devices");
+console.log(devices);
 
 var gamesC = 0;
-var currentGObj = [];
 
 io.on('connection', function(socket) {
     socket.on('score update', function(team, score) {
@@ -19,9 +18,9 @@ io.on('connection', function(socket) {
     });
     socket.on('update', function() {
         io.emit('new game', db.getData("/games"));
-        io.emit('score update', 0, db.getData("/currentGame[0]"));
-        io.emit('score update', 1, db.getData("/currentGame[1]"));
-        io.emit('score update', 2, db.getData("/currentGame[2]"));
+        io.emit('score update', 0, db.getData("/currentGame/t0"));
+        io.emit('score update', 1, db.getData("/currentGame/t1"));
+        io.emit('score update', 2, db.getData("/currentGame/t2"));
     });
 });
 
@@ -34,18 +33,22 @@ app.get('/scores', function(req, res) {
 });
 
 app.get('/newgame', function(req, res) {
-    var obj = {
-        't0' : db.getData("/currentGame[0]"),
-        't1' : db.getData("/currentGame[1]"),
-        't2' : db.getData("/currentGame[2]")
+    var curGame = db.getData("/currentGame");
+
+    db.push("/games[-1]", curGame, false);
+    io.emit('new game', db.getData("/games"));
+    
+    curGame = {
+        'startDate' : new Date().toUTCString(),
+        't0' : 0,
+        't1' : 0,
+        't2' : 0,
+        'targets' : deviceDb.getData("/devices")
     };
 
-    db.push("/games[-1]", obj, false);
-    io.emit('new game', db.getData("/games"));
-    db.push("/games[]", {'startDate' : new Date().toUTCString()})
+    db.push("/games[]", curGame)
 
-    var currentGObj = [0,0,0];
-    db.push("/currentGame", currentGObj)
+    db.push("/currentGame", curGame);
     
     io.emit('score update', 0, 0);
     io.emit('score update', 1, 0);
@@ -55,14 +58,20 @@ app.get('/newgame', function(req, res) {
 });
 
 app.get('/receive', function(req, res) {
-    var query = req.url;
-    var team = parseInt(query.slice(9, 10));
-    console.log(team);
-    var target = linq.from(devicesTemplates).first(function(value, index) { return value.uni_code === team;});
-    console.log(target);
+    res.end();
+    post(req, res);
+});
 
-    db.push("/currentGame[" + team + "]", db.getData("/currentGame[" + team + "]") + target.point_reward);
-    io.emit('score update', team, db.getData("/currentGame[" + team + "]"));
+function post(req, res) {
+    var query = req.url;
+    var device = parseInt(query.slice(9, 10));
+    var team = parseInt(query.slice(10, 11));
+    var target = linq.from(devices).first(function(value, index) { return value.uni_code === device;});
+    console.log("Team " + team + " Hit " + target.name);
+    if (db.getData("/currentGame/targets[" + device + "]/status/active")) {
+    db.push("/currentGame/t" + team, db.getData("/currentGame/t" + team) + target.point_reward);
+    db.push("/currentGame/targets[" + device + "]/status/last_activation", new Date().getTime());
+    io.emit('score update', team, db.getData("/currentGame/t" + team));
     request.put("https://locationPartOfAddress.api.smartthings.com:443/api/smartapps/installations/uuid/switches/" + target.iot_name, {
             headers: {
                 Authorization: "Bearer  tokenUuid"
@@ -72,7 +81,29 @@ app.get('/receive', function(req, res) {
             if (err) {
                 return console.error('upload failed:', err);
             }
-            console.log('Upload successful!  Server responded with:', body);
+            console.log('Put Request Successful');
         })
-    res.end();
-});
+        db.push("/currentGame/targets[" + device + "]/status/active", false);
+}}
+
+function update() {
+    for (var i = 0; i < db.getData("/currentGame/targets").length; i++ ){
+        if (new Date().getTime() > db.getData("/currentGame/targets[" + i + "]/status/last_activation") + db.getData("/currentGame/targets[" + i + "]/timeout")) {
+            if (!db.getData("/currentGame/targets[" + i + "]/status/active")) {
+         db.push("/currentGame/targets[" + i + "]/status/active", true);
+         request.put("https://locationPartOfAddress.api.smartthings.com:443/api/smartapps/installations/uuid/switches/" + db.getData("/currentGame/targets[" + i + "]/iot_name"), {
+            headers: {
+                Authorization: "Bearer  tokenUuid"
+            }
+        },
+        function optionalCallback(err, httpResponse, body) {
+            if (err) {
+                return console.error('upload failed:', err);
+            }
+            console.log('Put Request Successful');
+        })
+        }
+     }
+    }
+ }
+ setInterval(update, 500);
