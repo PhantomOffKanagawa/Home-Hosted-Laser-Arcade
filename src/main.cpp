@@ -161,13 +161,8 @@ void loop()
     }
 
     int httpCode = http.GET(); //Send the request
-    String payload = http.getString();                //Get the response payload
-
-    Serial.println(httpCode); //Print HTTP return code
-    Serial.println(payload);  //Print request response payload
 
     http.end(); //Close connection
     irrecv.resume(); // Receive the next value
-    //delay(5000);
  
 }}}
