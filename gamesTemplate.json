@@ -1,0 +1,226 @@
+{
+    "games": [
+        {
+            "startDate": "Wed, 04 Oct 2017 01:24:47 GMT",
+            "t0": 0,
+            "t1": 0,
+            "t2": 0,
+            "targets": [
+                {
+                    "name": "Torch Light Left",
+                    "uni_code": 0,
+                    "iot_type": "Smartthings",
+                    "iot_name": "Porch Light Door L",
+                    "timeout": 2500,
+                    "point_reward": 100,
+                    "hits_per": 1,
+                    "status": {
+                        "active": true,
+                        "last_activation": 0,
+                        "times_hit": 0
+                    },
+                    "analytics": {
+                        "t0h": 0,
+                        "t1h": 0,
+                        "t2h": 0,
+                        "t0a": 0,
+                        "t1a": 0,
+                        "t2a": 0
+                    }
+                },
+                {
+                    "name": "Volcano Light",
+                    "uni_code": 1,
+                    "iot_type": "Smartthings",
+                    "iot_name": "Porch Light Door L",
+                    "timeout": 5000,
+                    "point_reward": 200,
+                    "hits_per": 3,
+                    "status": {
+                        "active": true,
+                        "last_activation": 1507158886221,
+                        "times_hit": 0
+                    },
+                    "analytics": {
+                        "t0h": 0,
+                        "t1h": 0,
+                        "t2h": 0,
+                        "t0a": 0,
+                        "t1a": 0,
+                        "t2a": 0
+                    }
+                },
+                {
+                    "name": "Torch Light Right",
+                    "uni_code": 2,
+                    "iot_type": "Smartthings",
+                    "iot_name": "Porch Light Door R",
+                    "timeout": 2500,
+                    "point_reward": 100,
+                    "hits_per": 1,
+                    "status": {
+                        "active": true,
+                        "last_activation": 0,
+                        "times_hit": 0
+                    },
+                    "analytics": {
+                        "t0h": 0,
+                        "t1h": 0,
+                        "t2h": 0,
+                        "t0a": 0,
+                        "t1a": 0,
+                        "t2a": 0
+                    }
+                }
+            ]
+        },
+        {
+            "startDate": "Wed, 04 Oct 2017 23:34:12 GMT",
+            "t0": 0,
+            "t1": 0,
+            "t2": 0,
+            "targets": [
+                {
+                    "name": "Torch Light Left",
+                    "uni_code": 0,
+                    "iot_type": "Smartthings",
+                    "iot_name": "FR TV Left",
+                    "timeout": 2500,
+                    "point_reward": 100,
+                    "hits_per": 1,
+                    "status": {
+                        "active": true,
+                        "last_activation": 0,
+                        "times_hit": 0
+                    },
+                    "analytics": {
+                        "t0h": 0,
+                        "t1h": 0,
+                        "t2h": 0,
+                        "t0a": 0,
+                        "t1a": 0,
+                        "t2a": 0
+                    }
+                },
+                {
+                    "name": "Volcano Light",
+                    "uni_code": 1,
+                    "iot_type": "Smartthings",
+                    "iot_name": "FR TV Center",
+                    "timeout": 5000,
+                    "point_reward": 200,
+                    "hits_per": 3,
+                    "status": {
+                        "active": true,
+                        "last_activation": 0,
+                        "times_hit": 0
+                    },
+                    "analytics": {
+                        "t0h": 0,
+                        "t1h": 0,
+                        "t2h": 0,
+                        "t0a": 0,
+                        "t1a": 0,
+                        "t2a": 0
+                    }
+                },
+                {
+                    "name": "Torch Light Right",
+                    "uni_code": 2,
+                    "iot_type": "Smartthings",
+                    "iot_name": "FR TV Right",
+                    "timeout": 2500,
+                    "point_reward": 100,
+                    "hits_per": 1,
+                    "status": {
+                        "active": true,
+                        "last_activation": 0,
+                        "times_hit": 0
+                    },
+                    "analytics": {
+                        "t0h": 0,
+                        "t1h": 0,
+                        "t2h": 0,
+                        "t0a": 0,
+                        "t1a": 0,
+                        "t2a": 0
+                    }
+                }
+            ]
+        }
+    ],
+    "currentGame": {
+        "startDate": "Wed, 04 Oct 2017 23:34:12 GMT",
+        "t0": 0,
+        "t1": 0,
+        "t2": 0,
+        "targets": [
+            {
+                "name": "Torch Light Left",
+                "uni_code": 0,
+                "iot_type": "Smartthings",
+                "iot_name": "FR TV Left",
+                "timeout": 2500,
+                "point_reward": 100,
+                "hits_per": 1,
+                "status": {
+                    "active": true,
+                    "last_activation": 0,
+                    "times_hit": 0
+                },
+                "analytics": {
+                    "t0h": 0,
+                    "t1h": 0,
+                    "t2h": 0,
+                    "t0a": 0,
+                    "t1a": 0,
+                    "t2a": 0
+                }
+            },
+            {
+                "name": "Volcano Light",
+                "uni_code": 1,
+                "iot_type": "Smartthings",
+                "iot_name": "FR TV Center",
+                "timeout": 5000,
+                "point_reward": 200,
+                "hits_per": 3,
+                "status": {
+                    "active": true,
+                    "last_activation": 0,
+                    "times_hit": 0
+                },
+                "analytics": {
+                    "t0h": 0,
+                    "t1h": 0,
+                    "t2h": 0,
+                    "t0a": 0,
+                    "t1a": 0,
+                    "t2a": 0
+                }
+            },
+            {
+                "name": "Torch Light Right",
+                "uni_code": 2,
+                "iot_type": "Smartthings",
+                "iot_name": "FR TV Right",
+                "timeout": 2500,
+                "point_reward": 100,
+                "hits_per": 1,
+                "status": {
+                    "active": true,
+                    "last_activation": 0,
+                    "times_hit": 0
+                },
+                "analytics": {
+                    "t0h": 0,
+                    "t1h": 0,
+                    "t2h": 0,
+                    "t0a": 0,
+                    "t1a": 0,
+                    "t2a": 0
+                }
+            }
+        ]
+    }
+}

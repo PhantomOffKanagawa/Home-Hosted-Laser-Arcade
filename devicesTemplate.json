@@ -1,10 +1,32 @@
 {
     "devices": [
         {
-            "name": "Torch Light Left",
+            "name": "Node 0",
             "uni_code": 0,
             "iot_type": "Smartthings",
             "iot_name": "FR TV Left",
+            "timeout": 2500,
+            "point_reward": 1,
+            "hits_per": 1,
+            "status": {
+                "active": true,
+                "last_activation": 0,
+                "times_hit": 0
+            },
+            "analytics": {
+                "t0h": 0,
+                "t1h": 0,
+                "t2h": 0,
+                "t0a": 0,
+                "t1a": 0,
+                "t2a": 0
+            }
+        },
+        {
+            "name": "Node 1",
+            "uni_code": 1,
+            "iot_type": "Smartthings",
+            "iot_name": "Porch Light Door R",
             "timeout": 2500,
             "point_reward": 100,
             "hits_per": 1,
@@ -23,13 +45,13 @@
             }
         },
         {
-            "name": "Volcano Light",
-            "uni_code": 1,
+            "name": "Node 2",
+            "uni_code": 2,
             "iot_type": "Smartthings",
-            "iot_name": "FR TV Center",
-            "timeout": 5000,
-            "point_reward": 200,
-            "hits_per": 3,
+            "iot_name": "Porch Light Door R",
+            "timeout": 2500,
+            "point_reward": 100,
+            "hits_per": 1,
             "status": {
                 "active": true,
                 "last_activation": 0,
@@ -45,10 +67,318 @@
             }
         },
         {
-            "name": "Torch Light Right",
-            "uni_code": 2,
+            "name": "Node 3",
+            "uni_code": 3,
             "iot_type": "Smartthings",
-            "iot_name": "FR TV Right",
+            "iot_name": "Porch Light Door R",
+            "timeout": 2500,
+            "point_reward": 100,
+            "hits_per": 1,
+            "status": {
+                "active": true,
+                "last_activation": 0,
+                "times_hit": 0
+            },
+            "analytics": {
+                "t0h": 0,
+                "t1h": 0,
+                "t2h": 0,
+                "t0a": 0,
+                "t1a": 0,
+                "t2a": 0
+            }
+        },
+        {
+            "name": "Node 4",
+            "uni_code": 4,
+            "iot_type": "Smartthings",
+            "iot_name": "Porch Light Door R",
+            "timeout": 2500,
+            "point_reward": 100,
+            "hits_per": 1,
+            "status": {
+                "active": true,
+                "last_activation": 0,
+                "times_hit": 0
+            },
+            "analytics": {
+                "t0h": 0,
+                "t1h": 0,
+                "t2h": 0,
+                "t0a": 0,
+                "t1a": 0,
+                "t2a": 0
+            }
+        },
+        {
+            "name": "Node 5",
+            "uni_code": 5,
+            "iot_type": "Smartthings",
+            "iot_name": "Porch Light Door R",
+            "timeout": 2500,
+            "point_reward": 100,
+            "hits_per": 1,
+            "status": {
+                "active": true,
+                "last_activation": 0,
+                "times_hit": 0
+            },
+            "analytics": {
+                "t0h": 0,
+                "t1h": 0,
+                "t2h": 0,
+                "t0a": 0,
+                "t1a": 0,
+                "t2a": 0
+            }
+        },
+        {
+            "name": "Node 6",
+            "uni_code": 6,
+            "iot_type": "Smartthings",
+            "iot_name": "Porch Light Door R",
+            "timeout": 2500,
+            "point_reward": 100,
+            "hits_per": 1,
+            "status": {
+                "active": true,
+                "last_activation": 0,
+                "times_hit": 0
+            },
+            "analytics": {
+                "t0h": 0,
+                "t1h": 0,
+                "t2h": 0,
+                "t0a": 0,
+                "t1a": 0,
+                "t2a": 0
+            }
+        },
+        {
+            "name": "Node 7",
+            "uni_code": 7,
+            "iot_type": "Smartthings",
+            "iot_name": "Porch Light Door R",
+            "timeout": 2500,
+            "point_reward": 100,
+            "hits_per": 1,
+            "status": {
+                "active": true,
+                "last_activation": 0,
+                "times_hit": 0
+            },
+            "analytics": {
+                "t0h": 0,
+                "t1h": 0,
+                "t2h": 0,
+                "t0a": 0,
+                "t1a": 0,
+                "t2a": 0
+            }
+        },
+        {
+            "name": "Node 8",
+            "uni_code": 8,
+            "iot_type": "Smartthings",
+            "iot_name": "Porch Light Door R",
+            "timeout": 2500,
+            "point_reward": 100,
+            "hits_per": 1,
+            "status": {
+                "active": true,
+                "last_activation": 0,
+                "times_hit": 0
+            },
+            "analytics": {
+                "t0h": 0,
+                "t1h": 0,
+                "t2h": 0,
+                "t0a": 0,
+                "t1a": 0,
+                "t2a": 0
+            }
+        },
+        {
+            "name": "Node 9",
+            "uni_code": 9,
+            "iot_type": "Smartthings",
+            "iot_name": "Porch Light Door R",
+            "timeout": 2500,
+            "point_reward": 100,
+            "hits_per": 1,
+            "status": {
+                "active": true,
+                "last_activation": 0,
+                "times_hit": 0
+            },
+            "analytics": {
+                "t0h": 0,
+                "t1h": 0,
+                "t2h": 0,
+                "t0a": 0,
+                "t1a": 0,
+                "t2a": 0
+            }
+        },
+        {
+            "name": "Node 10",
+            "uni_code": 10,
+            "iot_type": "Smartthings",
+            "iot_name": "Porch Light Door R",
+            "timeout": 2500,
+            "point_reward": 100,
+            "hits_per": 1,
+            "status": {
+                "active": true,
+                "last_activation": 0,
+                "times_hit": 0
+            },
+            "analytics": {
+                "t0h": 0,
+                "t1h": 0,
+                "t2h": 0,
+                "t0a": 0,
+                "t1a": 0,
+                "t2a": 0
+            }
+        },
+        {
+            "name": "Node 11",
+            "uni_code": 11,
+            "iot_type": "Smartthings",
+            "iot_name": "Porch Light Door R",
+            "timeout": 2500,
+            "point_reward": 100,
+            "hits_per": 1,
+            "status": {
+                "active": true,
+                "last_activation": 0,
+                "times_hit": 0
+            },
+            "analytics": {
+                "t0h": 0,
+                "t1h": 0,
+                "t2h": 0,
+                "t0a": 0,
+                "t1a": 0,
+                "t2a": 0
+            }
+        },
+        {
+            "name": "Node 12",
+            "uni_code": 12,
+            "iot_type": "Smartthings",
+            "iot_name": "Porch Light Door R",
+            "timeout": 2500,
+            "point_reward": 100,
+            "hits_per": 1,
+            "status": {
+                "active": true,
+                "last_activation": 0,
+                "times_hit": 0
+            },
+            "analytics": {
+                "t0h": 0,
+                "t1h": 0,
+                "t2h": 0,
+                "t0a": 0,
+                "t1a": 0,
+                "t2a": 0
+            }
+        },
+        {
+            "name": "Node 13",
+            "uni_code": 13,
+            "iot_type": "Smartthings",
+            "iot_name": "Porch Light Door R",
+            "timeout": 2500,
+            "point_reward": 100,
+            "hits_per": 1,
+            "status": {
+                "active": true,
+                "last_activation": 0,
+                "times_hit": 0
+            },
+            "analytics": {
+                "t0h": 0,
+                "t1h": 0,
+                "t2h": 0,
+                "t0a": 0,
+                "t1a": 0,
+                "t2a": 0
+            }
+        },
+        {
+            "name": "Node 14",
+            "uni_code": 14,
+            "iot_type": "Smartthings",
+            "iot_name": "Porch Light Door R",
+            "timeout": 2500,
+            "point_reward": 100,
+            "hits_per": 1,
+            "status": {
+                "active": true,
+                "last_activation": 0,
+                "times_hit": 0
+            },
+            "analytics": {
+                "t0h": 0,
+                "t1h": 0,
+                "t2h": 0,
+                "t0a": 0,
+                "t1a": 0,
+                "t2a": 0
+            }
+        },
+        {
+            "name": "Node 15",
+            "uni_code": 15,
+            "iot_type": "Smartthings",
+            "iot_name": "Porch Light Door R",
+            "timeout": 2500,
+            "point_reward": 100,
+            "hits_per": 1,
+            "status": {
+                "active": true,
+                "last_activation": 0,
+                "times_hit": 0
+            },
+            "analytics": {
+                "t0h": 0,
+                "t1h": 0,
+                "t2h": 0,
+                "t0a": 0,
+                "t1a": 0,
+                "t2a": 0
+            }
+        },
+        {
+            "name": "Node 16",
+            "uni_code": 16,
+            "iot_type": "Smartthings",
+            "iot_name": "Porch Light Door R",
+            "timeout": 2500,
+            "point_reward": 100,
+            "hits_per": 1,
+            "status": {
+                "active": true,
+                "last_activation": 0,
+                "times_hit": 0
+            },
+            "analytics": {
+                "t0h": 0,
+                "t1h": 0,
+                "t2h": 0,
+                "t0a": 0,
+                "t1a": 0,
+                "t2a": 0
+            }
+        },
+        {
+            "name": "Node 17",
+            "uni_code": 17,
+            "iot_type": "Smartthings",
+            "iot_name": "Porch Light Door R",
             "timeout": 2500,
             "point_reward": 100,
             "hits_per": 1,

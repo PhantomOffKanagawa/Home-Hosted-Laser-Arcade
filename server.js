@@ -28,6 +28,18 @@ http.listen(8080, function() {
     console.log('listening on *:8080');
 });
 
+app.get('/panel', function(req, res) {
+    res.sendFile(__dirname + '/control.html');
+});
+
+app.get('/smartT', function(req, res) {
+    var query = req.url;
+    if (query.length >= 11) {
+        res.redirect("https://graph.api.smartthings.com/oauth/authorize?response_type=code&client_id=" + req.query.client_id + "&scope=app&redirect_uri=" + req.query.url);
+    }
+    res.end();
+});
+
 app.get('/scores', function(req, res) {
     res.sendFile(__dirname + '/scores.html');
 });
@@ -64,15 +76,16 @@ app.get('/receive', function(req, res) {
 
 function post(req, res) {
     var query = req.url;
-    var device = parseInt(query.slice(9, 10));
-    var team = parseInt(query.slice(10, 11));
+    var device = parseInt(query.slice(-3, -1).replace("?", ""));
+    console.log(query.slice(-3, -1).replace("?", ""));
+    var team = parseInt(query.slice(-1));
     var target = linq.from(devices).first(function(value, index) { return value.uni_code === device;});
     console.log("Team " + team + " Hit " + target.name);
     if (db.getData("/currentGame/targets[" + device + "]/status/active")) {
     db.push("/currentGame/t" + team, db.getData("/currentGame/t" + team) + target.point_reward);
     db.push("/currentGame/targets[" + device + "]/status/last_activation", new Date().getTime());
     io.emit('score update', team, db.getData("/currentGame/t" + team));
-    request.put("https://locationPartOfAddress.api.smartthings.com:443/api/smartapps/installations/uuid/switches/" + target.iot_name, {
+    request.put("https://locationPartOfAddress.api.smartthings.com:443/api/smartapps/installations/uuid/switches/" + target.iot_name + "/1", {
             headers: {
                 Authorization: "Bearer  tokenUuid"
             }
@@ -81,7 +94,7 @@ function post(req, res) {
             if (err) {
                 return console.error('upload failed:', err);
             }
-            console.log('Put Request Successful');
+            console.log(body);
         })
         db.push("/currentGame/targets[" + device + "]/status/active", false);
 }}
@@ -91,7 +104,7 @@ function update() {
         if (new Date().getTime() > db.getData("/currentGame/targets[" + i + "]/status/last_activation") + db.getData("/currentGame/targets[" + i + "]/timeout")) {
             if (!db.getData("/currentGame/targets[" + i + "]/status/active")) {
          db.push("/currentGame/targets[" + i + "]/status/active", true);
-         request.put("https://locationPartOfAddress.api.smartthings.com:443/api/smartapps/installations/uuid/switches/" + db.getData("/currentGame/targets[" + i + "]/iot_name"), {
+         request.put("https://locationPartOfAddress.api.smartthings.com:443/api/smartapps/installations/uuid/switches/" + db.getData("/currentGame/targets[" + i + "]/iot_name") + "/0", {
             headers: {
                 Authorization: "Bearer  tokenUuid"
             }
