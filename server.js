@@ -85,7 +85,7 @@ function post(req, res) {
     db.push("/currentGame/t" + team, db.getData("/currentGame/t" + team) + target.point_reward);
     db.push("/currentGame/targets[" + device + "]/status/last_activation", new Date().getTime());
     io.emit('score update', team, db.getData("/currentGame/t" + team));
-    request.put("https://locationPartOfAddress.api.smartthings.com:443/api/smartapps/installations/uuid/switches/" + target.iot_name + "/1", {
+    request.put("https://locationPartOfAddress.api.smartthings.com:443/api/smartapps/installations/uuid/switches/" + target.iot_name + "/0", {
             headers: {
                 Authorization: "Bearer  tokenUuid"
             }
@@ -104,7 +104,7 @@ function update() {
         if (new Date().getTime() > db.getData("/currentGame/targets[" + i + "]/status/last_activation") + db.getData("/currentGame/targets[" + i + "]/timeout")) {
             if (!db.getData("/currentGame/targets[" + i + "]/status/active")) {
          db.push("/currentGame/targets[" + i + "]/status/active", true);
-         request.put("https://locationPartOfAddress.api.smartthings.com:443/api/smartapps/installations/uuid/switches/" + db.getData("/currentGame/targets[" + i + "]/iot_name") + "/0", {
+         request.put("https://locationPartOfAddress.api.smartthings.com:443/api/smartapps/installations/uuid/switches/" + db.getData("/currentGame/targets[" + i + "]/iot_name") + "/1", {
             headers: {
                 Authorization: "Bearer  tokenUuid"
             }

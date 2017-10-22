@@ -40,12 +40,15 @@ def listSwitches() {
 
 void updateSwitches() {
 
- def command = params.command
+ def command = params.command == "1"
  def deviceName = params.device
  
  switches.each {
   if (it.displayName == deviceName) {
-   if (command == "1") {
+    if (it.displayName == "Snow Machine") {
+ command = !command
+}
+   if (command) {
     it.on()
    } else {
     it.off()

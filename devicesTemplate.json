@@ -4,7 +4,7 @@
             "name": "Node 0",
             "uni_code": 0,
             "iot_type": "Smartthings",
-            "iot_name": "FR TV Left",
+            "iot_name": "Snow Machine",
             "timeout": 2500,
             "point_reward": 1,
             "hits_per": 1,
