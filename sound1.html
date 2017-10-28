@@ -1,0 +1,30 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Audio</title>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var audio;
+        var socket = io();
+        socket.on('sound', function(soundName) {
+            if (soundName == "footstep") {
+                document.getElementById("audio").innerHTML += '<audio autoplay><source src="static/footstep.mp3"></audio><h1>Played</h1><br>';
+            }
+        });
+    </script>
+
+
+    <style></style>
+
+
+</head>
+
+<body>
+
+    <div id="audio"></div>
+
+</body>
+
+</html>

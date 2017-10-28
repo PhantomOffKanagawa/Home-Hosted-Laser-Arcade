@@ -1,12 +1,12 @@
 {
     "devices": [
         {
-            "name": "Node 0",
+            "name": "Barbasol",
             "uni_code": 0,
             "iot_type": "Smartthings",
             "iot_name": "Snow Machine",
             "timeout": 2500,
-            "point_reward": 1,
+            "point_reward": 400,
             "hits_per": 1,
             "status": {
                 "active": true,
@@ -23,12 +23,12 @@
             }
         },
         {
-            "name": "Node 1",
+            "name": "TRex",
             "uni_code": 1,
-            "iot_type": "Smartthings",
-            "iot_name": "Porch Light Door R",
+            "iot_type": "Sound",
+            "iot_name": "roar",
             "timeout": 2500,
-            "point_reward": 100,
+            "point_reward": 400,
             "hits_per": 1,
             "status": {
                 "active": true,
@@ -45,12 +45,12 @@
             }
         },
         {
-            "name": "Node 2",
+            "name": "DinoEgg",
             "uni_code": 2,
             "iot_type": "Smartthings",
-            "iot_name": "Porch Light Door R",
+            "iot_name": "Dino",
             "timeout": 2500,
-            "point_reward": 100,
+            "point_reward": 200,
             "hits_per": 1,
             "status": {
                 "active": true,
@@ -67,12 +67,12 @@
             }
         },
         {
-            "name": "Node 3",
+            "name": "Comet",
             "uni_code": 3,
             "iot_type": "Smartthings",
-            "iot_name": "Porch Light Door R",
+            "iot_name": "Comet",
             "timeout": 2500,
-            "point_reward": 100,
+            "point_reward": 300,
             "hits_per": 1,
             "status": {
                 "active": true,
@@ -89,12 +89,12 @@
             }
         },
         {
-            "name": "Node 4",
+            "name": "Sign",
             "uni_code": 4,
             "iot_type": "Smartthings",
-            "iot_name": "Porch Light Door R",
+            "iot_name": "Jurassic Park Sign",
             "timeout": 2500,
-            "point_reward": 100,
+            "point_reward": 300,
             "hits_per": 1,
             "status": {
                 "active": true,
@@ -111,12 +111,12 @@
             }
         },
         {
-            "name": "Node 5",
+            "name": "Triceratops Baby",
             "uni_code": 5,
-            "iot_type": "Smartthings",
-            "iot_name": "Porch Light Door R",
+            "iot_type": "Apex",
+            "iot_name": "Trilight",
             "timeout": 2500,
-            "point_reward": 100,
+            "point_reward": 200,
             "hits_per": 1,
             "status": {
                 "active": true,
@@ -133,10 +133,10 @@
             }
         },
         {
-            "name": "Node 6",
+            "name": "Map",
             "uni_code": 6,
-            "iot_type": "Smartthings",
-            "iot_name": "Porch Light Door R",
+            "iot_type": "Sound",
+            "iot_name": "footstep",
             "timeout": 2500,
             "point_reward": 100,
             "hits_per": 1,
@@ -155,10 +155,10 @@
             }
         },
         {
-            "name": "Node 7",
+            "name": "Gate Lights L",
             "uni_code": 7,
-            "iot_type": "Smartthings",
-            "iot_name": "Porch Light Door R",
+            "iot_type": "Apex",
+            "iot_name": "Left",
             "timeout": 2500,
             "point_reward": 100,
             "hits_per": 1,
@@ -177,10 +177,10 @@
             }
         },
         {
-            "name": "Node 8",
+            "name": "Gate Lights R",
             "uni_code": 8,
-            "iot_type": "Smartthings",
-            "iot_name": "Porch Light Door R",
+            "iot_type": "Apex",
+            "iot_name": "Right",
             "timeout": 2500,
             "point_reward": 100,
             "hits_per": 1,
@@ -199,12 +199,12 @@
             }
         },
         {
-            "name": "Node 9",
+            "name": "Volcano",
             "uni_code": 9,
-            "iot_type": "Smartthings",
-            "iot_name": "Porch Light Door R",
+            "iot_type": "Apex",
+            "iot_name": "Volcano",
             "timeout": 2500,
-            "point_reward": 100,
+            "point_reward": 200,
             "hits_per": 1,
             "status": {
                 "active": true,
@@ -221,10 +221,10 @@
             }
         },
         {
-            "name": "Node 10",
+            "name": "Nate",
             "uni_code": 10,
-            "iot_type": "Smartthings",
-            "iot_name": "Porch Light Door R",
+            "iot_type": "Apex",
+            "iot_name": "NateControl",
             "timeout": 2500,
             "point_reward": 100,
             "hits_per": 1,

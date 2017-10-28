@@ -1,0 +1,34 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Audio</title>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var audio;
+        var socket = io();
+        socket.on('sound', function(soundName) {
+            if (soundName == "30") {
+                document.getElementById("audio").innerHTML += '<audio autoplay><source src="static/30Sec.mp3"></audio>';
+            } else if (soundName == "10") {
+                document.getElementById("audio").innerHTML += '<audio autoplay><source src="static/10Sec.mp3"></audio>';
+            } else if (soundName == "over") {
+                document.getElementById("audio").innerHTML += '<audio autoplay><source src="static/gameover.mp3"></audio>';
+            }
+        });
+    </script>
+
+
+    <style></style>
+
+
+</head>
+
+<body>
+
+    <div id="audio"></div>
+
+</body>
+
+</html>
