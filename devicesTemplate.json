@@ -380,7 +380,7 @@
             "iot_type": "Smartthings",
             "iot_name": "Porch Light Door R",
             "timeout": 2500,
-            "point_reward": 100,
+            "point_reward": 10000,
             "hits_per": 1,
             "status": {
                 "active": true,

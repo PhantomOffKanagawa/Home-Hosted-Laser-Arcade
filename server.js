@@ -35,7 +35,7 @@ app.get('/dino', function(req, res) {
 });
 
 app.get('/footstep', function(req, res) {
-    res.sendFile(__dirname + '/sound.html');
+    res.sendFile(__dirname + '/sound1.html');
 });
 
 app.get('/host', function(req, res) {
