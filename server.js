@@ -10,16 +10,14 @@ var linq = require("linq");
 var deviceDb = new JsonDB("devicesTemplate", false, true);
 var devices = deviceDb.getData("/devices");
 console.log(devices);
-app.use('/static', express.static('public'))
-
-var gamesC = 0;
+app.use('/static', express.static('public'));
 
 io.on('connection', function(socket) {
     socket.on('score update', function(team, score) {
         io.emit('score update', team);
     });
     socket.on('update', function() {
-        io.emit('new game', db.getData("/games"));
+        io.emit('end game', db.getData("/games"));
         io.emit('score update', 0, db.getData("/currentGame/t0"));
         io.emit('score update', 1, db.getData("/currentGame/t1"));
         io.emit('score update', 2, db.getData("/currentGame/t2"));
@@ -47,27 +45,26 @@ app.get('/scores', function(req, res) {
 });
 
 app.get('/newgame', function(req, res) {
+    io.emit('sound', "start");
     var curGame = db.getData("/currentGame");
 
-    db.push("/games[-1]", curGame, false);
-    io.emit('new game', db.getData("/games"));
-    
     curGame = {
-        'startDate' : new Date().toUTCString(),
-        't0' : 0,
-        't1' : 0,
-        't2' : 0,
-        'targets' : deviceDb.getData("/devices")
+        'startTime': new Date().getTime(),
+        'alerts': 0,
+        'startDate': new Date().toUTCString(),
+        't0': 0,
+        't1': 0,
+        't2': 0,
+        'targets': deviceDb.getData("/devices")
     };
 
     db.push("/games[]", curGame)
 
     db.push("/currentGame", curGame);
-    
+
     io.emit('score update', 0, 0);
     io.emit('score update', 1, 0);
     io.emit('score update', 2, 0);
-    gamesC++;
     res.end();
 });
 
@@ -81,47 +78,73 @@ function post(req, res) {
     var device = parseInt(query.slice(-3, -1).replace("?", ""));
     console.log(query.slice(-3, -1).replace("?", ""));
     var team = parseInt(query.slice(-1));
-    var target = linq.from(devices).first(function(value, index) { return value.uni_code === device;});
+    var target = linq.from(devices).first(function(value, index) { return value.uni_code === device; });
     console.log("Team " + team + " Hit " + target.name);
     if (db.getData("/currentGame/targets[" + device + "]/status/active")) {
-    db.push("/currentGame/t" + team, db.getData("/currentGame/t" + team) + target.point_reward);
-    db.push("/currentGame/targets[" + device + "]/status/last_activation", new Date().getTime());
-    io.emit('score update', team, db.getData("/currentGame/t" + team));
-   if (target.iot_type == "Smartthings") {
-    request.put("https://locationPartOfAddress.api.smartthings.com:443/api/smartapps/installations/uuid/switches/" + target.iot_name + "/0", {
-            headers: {
-                Authorization: "Bearer  tokenUuid"
-            }
-        })
-        console.log("Smartthings " + target.iot_name);
-    } else if (target.iot_type == "Apex") {
-        request.post("http://apexIp:port/status.sht?" + target.iot_name + "_state=1&Update=Update", {})
-        console.log("APEX " + target.iot_name);
-    } else if (target.iot_type == "Sound") {
-        io.emit('sound',target.iot_name);
-        console.log("Sound");
-    }
+        db.push("/currentGame/t" + team, db.getData("/currentGame/t" + team) + target.point_reward);
+        db.push("/currentGame/targets[" + device + "]/status/last_activation", new Date().getTime());
+        io.emit('score update', team, db.getData("/currentGame/t" + team));
+        if (target.iot_type == "Smartthings") {
+            request.put("https://locationPartOfAddress.api.smartthings.com:443/api/smartapps/installations/uuid/switches/" + target.iot_name + "/0", {
+                headers: {
+                    Authorization: "Bearer  tokenUuid"
+                }
+            })
+            console.log("Smartthings " + target.iot_name);
+        } else if (target.iot_type == "Apex") {
+            request.post("http://apexIp:port/status.sht?" + target.iot_name + "_state=1&Update=Update", {})
+            console.log("APEX " + target.iot_name);
+        } else if (target.iot_type == "Sound") {
+            io.emit('sound', target.iot_name);
+            console.log("Sound");
+        }
         db.push("/currentGame/targets[" + device + "]/status/active", false);
-}}
+    }
+}
 
 function update() {
-    for (var i = 0; i < db.getData("/currentGame/targets").length; i++ ){
+    for (var i = 0; i < db.getData("/currentGame/targets").length; i++) {
         if (new Date().getTime() > db.getData("/currentGame/targets[" + i + "]/status/last_activation") + db.getData("/currentGame/targets[" + i + "]/timeout")) {
             if (!db.getData("/currentGame/targets[" + i + "]/status/active")) {
-         db.push("/currentGame/targets[" + i + "]/status/active", true);
-   if (db.getData("/currentGame/targets[" + i + "]/iot_type") == "Smartthings") {
-         request.put("https://locationPartOfAddress.api.smartthings.com:443/api/smartapps/installations/uuid/switches/" + db.getData("/currentGame/targets[" + i + "]/iot_name") + "/1", {
-            headers: {
-                Authorization: "Bearer  tokenUuid"
+                db.push("/currentGame/targets[" + i + "]/status/active", true);
+                if (db.getData("/currentGame/targets[" + i + "]/iot_type") == "Smartthings") {
+                    request.put("https://locationPartOfAddress.api.smartthings.com:443/api/smartapps/installations/uuid/switches/" + db.getData("/currentGame/targets[" + i + "]/iot_name") + "/1", {
+                        headers: {
+                            Authorization: "Bearer  tokenUuid"
+                        }
+                    })
+                    console.log("Smartthings " + db.getData("/currentGame/targets[" + i + "]/iot_name"));
+                } else if (db.getData("/currentGame/targets[" + i + "]/iot_type") == "Apex") {
+                    request.post("http://apexIp:port/status.sht?" + db.getData("/currentGame/targets[" + i + "]/iot_name") + "_state=0&Update=Update", {})
+                    console.log("APEX " + db.getData("/currentGame/targets[" + i + "]/iot_name"));
+                }
             }
-        })
-        console.log("Smartthings " + db.getData("/currentGame/targets[" + i + "]/iot_name"));
-        } else if (db.getData("/currentGame/targets[" + i + "]/iot_type") == "Apex") {
-            request.post("http://apexIp:port/status.sht?" + db.getData("/currentGame/targets[" + i + "]/iot_name") + "_state=0&Update=Update", {})
-            console.log("APEX " + db.getData("/currentGame/targets[" + i + "]/iot_name"));
         }
-        }
-     }
     }
- }
- setInterval(update, 500);
+    if (new Date().getTime() > db.getData("/currentGame/startTime") + 180000) {
+        if (db.getData("/currentGame/alerts") == 10) {
+            io.emit('sound', "over");
+            db.push("/currentGame/alerts", 'over');
+
+            var curGame = db.getData("/currentGame");
+            db.push("/games[-1]", curGame, false);
+            io.emit('end game', db.getData("/games"));
+            console.log("Game Over");
+        }
+    }
+    else if (new Date().getTime() > db.getData("/currentGame/startTime") + 170000) {
+        if (db.getData("/currentGame/alerts") == 30) {
+            io.emit('sound', 10);
+            db.push("/currentGame/alerts", 10);
+            console.log("10 Seconds Left");
+        }
+    }
+    else if (new Date().getTime() > db.getData("/currentGame/startTime") + 150000) {
+        if (db.getData("/currentGame/alerts") == 0) {
+                io.emit('sound', 30);
+                db.push("/currentGame/alerts", 30);
+                console.log("30 Seconds Left");
+            }
+    }
+}
+setInterval(update, 500);
