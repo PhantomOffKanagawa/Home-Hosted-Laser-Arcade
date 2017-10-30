@@ -1,3 +1,3 @@
-cd NodeServer
+:Start
 node server.js
-pause
+GOTO Start

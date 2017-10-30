@@ -8,9 +8,13 @@ var db = new JsonDB("oldGames", true, true);
 var linq = require("linq");
 
 var pause = false;
+var gameLength = 90*1000;
+var game30Seconds = 30 * 1000;
+var game10Seconds = 10 * 1000;
+
 var deviceDb = new JsonDB("devicesTemplate", false, true);
 var devices = deviceDb.getData("/devices");
-console.log(devices);
+//console.log(devices);
 app.use('/static', express.static('public'));
 
 io.on('connection', function(socket) {
@@ -88,14 +92,23 @@ function post(req, res) {
             db.push("/currentGame/targets[" + device + "]/status/last_activation", new Date().getTime());
             io.emit('score update', team, db.getData("/currentGame/t" + team));
             if (target.iot_type == "Smartthings") {
-                request.put("https://locationPartOfAddress.api.smartthings.com:443/api/smartapps/installations/uuid/switches/" + target.iot_name + "/0", {
-                    headers: {
-                        Authorization: "Bearer  tokenUuid"
-                    }
-                })
+                try {
+                    request.put("https://locationPartOfAddress.api.smartthings.com:443/api/smartapps/installations/uuid/switches/" + target.iot_name + "/0", {
+                        headers: {
+                            Authorization: "Bearer  tokenUuid"
+                        }
+                    })
+                } catch(err) {
+                    console.log("SmartThings bad thing happened");
+                }
+
                 console.log("Smartthings " + target.iot_name);
             } else if (target.iot_type == "Apex") {
+                try {
                 request.post("http://apexIp:port/status.sht?" + target.iot_name + "_state=1&Update=Update", {})
+                } catch(err) {
+                    console.log("APEX Bad Thing Happened");
+                }
                 console.log("APEX " + target.iot_name);
             } else if (target.iot_type == "Sound") {
                 io.emit('sound', target.iot_name);
@@ -112,20 +125,28 @@ function update() {
             if (!db.getData("/currentGame/targets[" + i + "]/status/active")) {
                 db.push("/currentGame/targets[" + i + "]/status/active", true);
                 if (db.getData("/currentGame/targets[" + i + "]/iot_type") == "Smartthings") {
+                    try {
                     request.put("https://locationPartOfAddress.api.smartthings.com:443/api/smartapps/installations/uuid/switches/" + db.getData("/currentGame/targets[" + i + "]/iot_name") + "/1", {
                         headers: {
                             Authorization: "Bearer  tokenUuid"
                         }
                     })
+                } catch(err) {
+                    console.log("SmartThings bad thing happened");
+                }
                     console.log("Smartthings " + db.getData("/currentGame/targets[" + i + "]/iot_name"));
                 } else if (db.getData("/currentGame/targets[" + i + "]/iot_type") == "Apex") {
+                    try {
                     request.post("http://apexIp:port/status.sht?" + db.getData("/currentGame/targets[" + i + "]/iot_name") + "_state=0&Update=Update", {})
+                    } catch(err)  {
+                        console.log("APEX Bad Thing Happened");
+                    }
                     console.log("APEX " + db.getData("/currentGame/targets[" + i + "]/iot_name"));
                 }
             }
         }
     }
-    if (new Date().getTime() > db.getData("/currentGame/startTime") + 180000) {
+    if (new Date().getTime() > db.getData("/currentGame/startTime") + gameLength) {
         if (db.getData("/currentGame/alerts") == 10) {
             io.emit('sound', "over");
             db.push("/currentGame/alerts", 'over');
@@ -136,13 +157,13 @@ function update() {
             pause = true;
             console.log("Game Over");
         }
-    } else if (new Date().getTime() > db.getData("/currentGame/startTime") + 170000) {
+    } else if (new Date().getTime() > db.getData("/currentGame/startTime") + (gameLength - game10Seconds)) {
         if (db.getData("/currentGame/alerts") == 30) {
             io.emit('sound', 10);
             db.push("/currentGame/alerts", 10);
             console.log("10 Seconds Left");
         }
-    } else if (new Date().getTime() > db.getData("/currentGame/startTime") + 150000) {
+    } else if (new Date().getTime() > db.getData("/currentGame/startTime") + (gameLength - game30Seconds)) {
         if (db.getData("/currentGame/alerts") == 0) {
             io.emit('sound', 30);
             db.push("/currentGame/alerts", 30);
