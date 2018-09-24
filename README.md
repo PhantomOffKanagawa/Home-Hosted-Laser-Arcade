@@ -1,4 +1,4 @@
-# Foobar ![CI status](https://img.shields.io/badge/build-passing-brightgreen.svg)![CI status](https://img.shields.io/badge/build-passing-brightgreen.svg)![CI status](https://img.shields.io/badge/build-passing-brightgreen.svg)
+# Foobar ![CI status](https://img.shields.io/badge/build-passing-brightgreen.svg) ![CI status](https://img.shields.io/badge/build-passing-brightgreen.svg) ![CI status](https://img.shields.io/badge/build-passing-brightgreen.svg)
 
 A basic code server and ESP8266 script to manage a home-made laser tag game
 
