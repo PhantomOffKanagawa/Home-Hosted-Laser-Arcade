@@ -17,19 +17,8 @@
 #include <IRrecv.h>
 #include <IRutils.h>
 
-#include <ESP8266HTTPClient.h>
-#include <ESP8266WiFi.h>
-
-int soloScore = 0;
-int oneScore = 0;
-int twoScore = 0;
-int teamNum = 0;
-
 // an IR detector/demodulator is connected to GPIO pin 2
-uint16_t RECV_PIN = 13;
-int val = 0;
-int val2 = 0;
-int val3 = 0;
+uint16_t RECV_PIN = 14;
 
 IRrecv irrecv(RECV_PIN);
 
@@ -39,15 +28,6 @@ void setup()
 {
   Serial.begin(9600);
   irrecv.enableIRIn(); // Start the receiver
-
-  WiFi.begin("NetworkSSID", "NetworkPassword"); //WiFi connection
-
-  while (WiFi.status() != WL_CONNECTED)
-  { //Wait for the WiFI connection completion
-
-    delay(500);
-    Serial.println("Waiting for connection");
-  }
 }
 
 void dump(decode_results *results)
@@ -133,36 +113,9 @@ void dump(decode_results *results)
 
 void loop()
 {
-  if (WiFi.status() == WL_CONNECTED)
-  { //Check WiFi connection status
   if (irrecv.decode(&results))
   {
-    HTTPClient http; //Declare object of class HTTPClient
-    
-    http.addHeader("Content-Type", "text/plain"); //Specify content-type header
-
-    if (results.value == 0xC74F590A)
-    {
-      soloScore++;
-      http.begin("serverip:port/receive?10"); //Specify request destination
-      Serial.println(soloScore);
-    }
-    else if (results.value == 0x1F582DCC)
-    {
-      oneScore++;
-      http.begin("serverip:port/receive?11"); //Specify request destination
-      Serial.println(oneScore);
-    }
-    else if (results.value == 0x7F2EF080)
-    {
-      twoScore++;
-      http.begin("serverip:port/receive?12"); //Specify request destination
-      Serial.println(twoScore);
-    }
-
-    int httpCode = http.GET(); //Send the request
-
-    http.end(); //Close connection
+    Serial.write(results.value);
     irrecv.resume(); // Receive the next value
  
-}}}
+}}
