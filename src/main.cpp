@@ -20,6 +20,8 @@
 #include <ESP8266HTTPClient.h>
 #include <ESP8266WiFi.h>
 
+int device = "00"; //2 digit code for the activated devices
+
 int soloScore = 0;
 int oneScore = 0;
 int twoScore = 0;
@@ -40,7 +42,7 @@ void setup()
   Serial.begin(9600);
   irrecv.enableIRIn(); // Start the receiver
 
-  WiFi.begin("NetworkSSID", "NetworkPassword"); //WiFi connection
+  WiFi.begin("WIFI NAME", "PASSWORD"); //WiFi connection
 
   while (WiFi.status() != WL_CONNECTED)
   { //Wait for the WiFI connection completion
@@ -135,8 +137,11 @@ void loop()
 {
   if (WiFi.status() == WL_CONNECTED)
   { //Check WiFi connection status
+    
   if (irrecv.decode(&results))
   {
+    serialPrintUint64(results.value, 16);
+    dump(&results);
     HTTPClient http; //Declare object of class HTTPClient
     
     http.addHeader("Content-Type", "text/plain"); //Specify content-type header
@@ -144,19 +149,19 @@ void loop()
     if (results.value == 0xC74F590A)
     {
       soloScore++;
-      http.begin("serverip:port/receive?10"); //Specify request destination
+      http.begin("serverip:port/receive?" + device + "0"); //Specify request destination
       Serial.println(soloScore);
     }
     else if (results.value == 0x1F582DCC)
     {
       oneScore++;
-      http.begin("serverip:port/receive?11"); //Specify request destination
+      http.begin("serverip:port/receive?" + device + "1"); //Specify request destination
       Serial.println(oneScore);
     }
     else if (results.value == 0x7F2EF080)
     {
       twoScore++;
-      http.begin("serverip:port/receive?12"); //Specify request destination
+      http.begin("serverip:port/receive?" + device + "2"); //Specify request destination
       Serial.println(twoScore);
     }
 
