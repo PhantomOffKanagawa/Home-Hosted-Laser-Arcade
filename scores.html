@@ -33,9 +33,19 @@
         #team2 {
             background-color: blue;
         }
-
+        
         #showData {
             clear: both;
+        }
+        
+        #mode {
+            position: fixed;
+            top: 50vh;
+            right: 50vw;
+            transform: translateX(-50%) translateY(-50%);
+            font-size: 10vw;
+            height: 10vh;
+            width: 5vw;
         }
     </style>
     <script src="/socket.io/socket.io.js"></script>
@@ -56,55 +66,70 @@
                 t2.setAttribute("style", "width:" + (parseInt(t2.innerHTML) / total * 75 + 17).toString() + "vw");
             });
             socket.on('end game', function(obj) {
-                    var col = [];
-                    for (var i = 0; i < obj.length; i++) {
-                        for (var key in obj[i]) {
-                            if (col.indexOf(key) === -1) {
-                                col.push(key);
-                            }
+                var col = [];
+                for (var i = 0; i < obj.length; i++) {
+                    for (var key in obj[i]) {
+                        if (col.indexOf(key) === -1) {
+                            col.push(key);
                         }
                     }
+                }
 
-                    // CREATE DYNAMIC TABLE.
-                    var table = document.createElement("table");
+                // CREATE DYNAMIC TABLE.
+                var table = document.createElement("table");
 
-                    // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
+                // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
 
-                    var tr = table.insertRow(-1); // TABLE ROW.
+                var tr = table.insertRow(-1); // TABLE ROW.
 
-                    for (var i = 0; i < col.length - 3; i++) {
-                        var th = document.createElement("th"); // TABLE HEADER.
-                        th.innerHTML = col[i];
-                        tr.appendChild(th);
+                for (var i = 0; i < col.length - 3; i++) {
+                    var th = document.createElement("th"); // TABLE HEADER.
+                    th.innerHTML = col[i];
+                    tr.appendChild(th);
+                }
+
+                // ADD JSON DATA TO THE TABLE AS ROWS.
+                for (var i = 0; i < obj.length; i++) {
+
+                    tr = table.insertRow(-1);
+
+                    for (var j = 0; j < col.length - 3; j++) {
+                        var tabCell = tr.insertCell(-1);
+                        tabCell.innerHTML = obj[i][col[j]];
                     }
+                }
 
-                    // ADD JSON DATA TO THE TABLE AS ROWS.
-                    for (var i = 0; i < obj.length; i++) {
-
-                        tr = table.insertRow(-1);
-
-                        for (var j = 0; j < col.length - 3; j++) {
-                            var tabCell = tr.insertCell(-1);
-                            tabCell.innerHTML = obj[i][col[j]];
-                        }
-                    }
-
-                    // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
-                    var divContainer = document.getElementById("showData");
-                    divContainer.innerHTML = "";
-                    divContainer.appendChild(table);
+                // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
+                var divContainer = document.getElementById("showData");
+                divContainer.innerHTML = "";
+                divContainer.appendChild(table);
             })
+            socket.on('sound', function(soundName) {
+                if (soundName == "30") {
+                    document.getElementById("mode").innerHTML = "30 Seconds Left";
+                } else if (soundName == "10") {
+                    document.getElementById("mode").innerHTML = "10 Seconds Left";
+                } else if (soundName == "over") {
+                    document.getElementById("mode").innerHTML = "Game Over";
+                } else if (soundName == "start") {
+                    document.getElementById("mode").innerHTML = "Game Started";
+                }
+            });
         });
     </script>
 </head>
 
 <body>
     <div id="contId" class="container">
-            <div style="width:5vw;">0:</div><div id="team0" class="score">0</div><br />
-            <div style="width:5vw;">1:</div><div id="team1">0</div><br />
-            <div style="width:5vw;">2:</div><div id="team2">0</div><br />
+        <div style="width:5vw;">0:</div>
+        <div id="team0" class="score">0</div><br />
+        <div style="width:5vw;">1:</div>
+        <div id="team1">0</div><br />
+        <div style="width:5vw;">2:</div>
+        <div id="team2">0</div><br />
     </div>
     <div id="showData"></div>
+    <div id="mode"></div>
 </body>
 
 </html>

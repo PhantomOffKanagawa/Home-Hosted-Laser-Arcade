@@ -182,7 +182,7 @@
             "iot_type": "Apex",
             "iot_name": "Right",
             "timeout": 2500,
-            "point_reward": 100,
+            "point_reward": 200,
             "hits_per": 1,
             "status": {
                 "active": true,
@@ -204,7 +204,7 @@
             "iot_type": "Apex",
             "iot_name": "Volcano",
             "timeout": 2500,
-            "point_reward": 200,
+            "point_reward": 100,
             "hits_per": 1,
             "status": {
                 "active": true,
@@ -226,7 +226,7 @@
             "iot_type": "Apex",
             "iot_name": "NateControl",
             "timeout": 2500,
-            "point_reward": 100,
+            "point_reward": 500,
             "hits_per": 1,
             "status": {
                 "active": true,
