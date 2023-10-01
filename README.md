@@ -3,6 +3,14 @@
 A basic code server and ESP8266 script to manage a home-made laser tag game
 
 ## Usage
+Things that need to be replaced (sorry I hadn't learned about .env yet):
+- serverip:port is the ip and port of the computer running NodeServer
+- NetworkSSID & NetworkPassword are the SSID and Password for the network for the ESP8266
+- uuid is a uuid passed by smartthings for your endpoint
+- tokenUuid is the bearer token for this endpoint
+- locationPartOfAddress is the smartthings locale address
+- apexIp:port is the ip and port for your apex endpoint
+
 The main server is found in the "NodeServer" folder and can be run with:
 
 ```
