@@ -149,19 +149,19 @@ void loop()
     if (results.value == 0xC74F590A)
     {
       soloScore++;
-      http.begin("serverip:port/receive?" + device + "0"); //Specify request destination
+      http.begin("http://192.168.100.101:8080/receive?" + device + "0"); //Specify request destination
       Serial.println(soloScore);
     }
     else if (results.value == 0x1F582DCC)
     {
       oneScore++;
-      http.begin("serverip:port/receive?" + device + "1"); //Specify request destination
+      http.begin("http://192.168.100.101:8080/receive?" + device + "1"); //Specify request destination
       Serial.println(oneScore);
     }
     else if (results.value == 0x7F2EF080)
     {
       twoScore++;
-      http.begin("serverip:port/receive?" + device + "2"); //Specify request destination
+      http.begin("http://192.168.100.101:8080/receive?" + device + "2"); //Specify request destination
       Serial.println(twoScore);
     }
 

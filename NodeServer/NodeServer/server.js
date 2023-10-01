@@ -137,7 +137,7 @@ function update() {
                     try {
                     request.put("https://foobar.api.smartthings.com:443/api/smartapps/installations/uuid/switches/" + db.getData("/currentGame/targets[" + i + "]/iot_name") + "/1", {
                         headers: {
-                            Authorization: "Bearer  tokenUuid"
+                            Authorization: "Bearer e333bab4-b07a-4053-8509-de874582164d"
                         }
                     });
                 } catch(err) {
