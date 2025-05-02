@@ -97,9 +97,9 @@ function post(req, res) {
             io.emit('score update', team, db.getData("/currentGame/t" + team)); //Update Scores webpage
             if (target.iot_type == "Smartthings") { //If Smartthings device
                 try { //Make Smartthings Call With Target Info (A real pain to get working)
-                    request.put("https://foobar.api.smartthings.com:443/api/smartapps/installations/uuid/switches/" + target.iot_name + "/0", {
+                    request.put("https://STENDPOINT.api.smartthings.com:443/api/smartapps/installations/uuid/switches/" + target.iot_name + "/0", {
                         headers: {
-                            Authorization: "Bearer uuid"
+                            Authorization: "Bearer REPLACE_UUID"
                         }
                     });
                 } catch(err) {
@@ -109,7 +109,7 @@ function post(req, res) {
                 console.log("Smartthings " + target.iot_name);
             } else if (target.iot_type == "Apex") { //If Apex device
                 try { //Make local call to server for Apex
-                request.post("http://apex@192.168.100.100:8800/status.sht?" + target.iot_name + "_state=1&Update=Update", {});
+                request.post("http://apex@APEXIP:PORT/status.sht?" + target.iot_name + "_state=1&Update=Update", {});
                 } catch(err) {
                     console.log("APEX Bad Thing Happened"); // Probably maybe won't happen
                 }
@@ -135,9 +135,9 @@ function update() {
                 /* Reverse of previous IoT requests to reactivate items instead of deactivating them */
                 if (db.getData("/currentGame/targets[" + i + "]/iot_type") == "Smartthings") {
                     try {
-                    request.put("https://foobar.api.smartthings.com:443/api/smartapps/installations/uuid/switches/" + db.getData("/currentGame/targets[" + i + "]/iot_name") + "/1", {
+                    request.put("https://STENDPOINT.api.smartthings.com:443/api/smartapps/installations/uuid/switches/" + db.getData("/currentGame/targets[" + i + "]/iot_name") + "/1", {
                         headers: {
-                            Authorization: "Bearer e333bab4-b07a-4053-8509-de874582164d"
+                            Authorization: "Bearer REPLACE_UUID"
                         }
                     });
                 } catch(err) {
@@ -146,7 +146,7 @@ function update() {
                     console.log("Smartthings " + db.getData("/currentGame/targets[" + i + "]/iot_name"));
                 } else if (db.getData("/currentGame/targets[" + i + "]/iot_type") == "Apex") {
                     try {
-                    request.post("http://apex@192.168.100.100:8800/status.sht?" + db.getData("/currentGame/targets[" + i + "]/iot_name") + "_state=0&Update=Update", {});
+                    request.post("http://apex@APEXIP:PORT/status.sht?" + db.getData("/currentGame/targets[" + i + "]/iot_name") + "_state=0&Update=Update", {});
                     } catch(err)  {
                         console.log("APEX Bad Thing Happened");
                     }

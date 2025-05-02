@@ -1,15 +1,24 @@
-# Foobar ![CI status](https://img.shields.io/badge/build-passing-brightgreen.svg) ![CI status](https://img.shields.io/badge/build-passing-brightgreen.svg) ![CI status](https://img.shields.io/badge/build-passing-brightgreen.svg)
+# 🔫 Home Hosted Laser Arcade
 
-A basic code server and ESP8266 script to manage a home-made laser tag game
+> A Nerf Laser Gun powered Arcade which used ESP8266 bords with IR receivers to detect shots and activate IoT devices. Node.js server with an embedded ESP8266 script to manage a IoT based home-made laser tag arcade game.
+
+> It was a super fun project to design and see working despite the jank of early code. I honestly hope to clean it up and be able to put it to use again in the future.
+
+>[!NOTE]
+> This is an old project from Freshman year High School that was made with a hard deadline that I quickly cleaned up 2 years ago but still needs to be cleaned up more. I haven't had the time to do so nor the access to the hardware to test it. Hopefully, I will be able to clean it up more in the future.
+
+>[!WARNING]
+> This project was designed to interact with SmartThings and the Apex IoT platform. The SmartThings API has changed significantly since this project was created, my recommendation and personal next step is to migrate to a Home Assistant setup. I have not tested this project with the new SmartThings API and it may not work as intended.
+
+![Image: Laser Arcade](image.png)
 
 ## Usage
-Things that need to be replaced (sorry I hadn't learned about .env yet):
-- serverip:port is the ip and port of the computer running NodeServer
-- NetworkSSID & NetworkPassword are the SSID and Password for the network for the ESP8266
-- uuid is a uuid passed by smartthings for your endpoint
-- tokenUuid is the bearer token for this endpoint
-- locationPartOfAddress is the smartthings locale address
-- apexIp:port is the ip and port for your apex endpoint
+Things that need to be replaced:
+- `ESP8266\ESP8266 Code\main.cpp` SERVERIP:8080 is the ip and port of the computer running NodeServer
+- `ESP8266\ESP8266 Code\main.cpp` WIFINAME & PASSWORD are the SSID and Password for the network for the ESP8266
+- `Node Server\Node Server\server.js` REPLACE_UUID is a uuid passed by smartthings for your endpoint
+- `Node Server\Node Server\server.js` STENDPOINT is the smartthings locale address
+- `Node Server\Node Server\server.js` APEXIP:PORT is the ip and port for your apex endpoint
 
 The main server is found in the "NodeServer" folder and can be run with:
 

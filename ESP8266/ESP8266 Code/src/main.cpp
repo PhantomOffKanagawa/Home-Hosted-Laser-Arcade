@@ -42,7 +42,7 @@ void setup()
   Serial.begin(9600);
   irrecv.enableIRIn(); // Start the receiver
 
-  WiFi.begin("WIFI NAME", "PASSWORD"); //WiFi connection
+  WiFi.begin("WIFINAME", "PASSWORD"); //WiFi connection
 
   while (WiFi.status() != WL_CONNECTED)
   { //Wait for the WiFI connection completion
@@ -149,19 +149,19 @@ void loop()
     if (results.value == 0xC74F590A)
     {
       soloScore++;
-      http.begin("http://192.168.100.101:8080/receive?" + device + "0"); //Specify request destination
+      http.begin("http://SERVERIP:8080/receive?" + device + "0"); //Specify request destination
       Serial.println(soloScore);
     }
     else if (results.value == 0x1F582DCC)
     {
       oneScore++;
-      http.begin("http://192.168.100.101:8080/receive?" + device + "1"); //Specify request destination
+      http.begin("http://SERVERIP:8080/receive?" + device + "1"); //Specify request destination
       Serial.println(oneScore);
     }
     else if (results.value == 0x7F2EF080)
     {
       twoScore++;
-      http.begin("http://192.168.100.101:8080/receive?" + device + "2"); //Specify request destination
+      http.begin("http://SERVERIP:8080/receive?" + device + "2"); //Specify request destination
       Serial.println(twoScore);
     }
 
